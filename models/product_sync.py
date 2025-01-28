@@ -17,11 +17,7 @@ class ProductTemplate(models.Model):
         try:
             # Call the sync logic
             self.sync_products()
-            # Reload the view after syncing
-            return {
-                "type": "ir.actions.client",
-                "tag": "reload",
-            }
+
         except Exception as e:
             _logger.error(f"Failed to sync products: {e}")
             return
@@ -109,12 +105,3 @@ class ProductTemplate(models.Model):
                     product.list_price = price["KBETR"]
             page += 1
 
-    def call_success_message(self):
-
-        return {
-            'effect': {
-                'type': 'rainbow_man',
-                'message': 'Data Fetched Successfully',
-                'fadeout': 'slow'
-            }
-        }
